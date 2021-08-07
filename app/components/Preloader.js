@@ -21,6 +21,9 @@ export default class Preloader extends Component {
 
     this.canvas = canvas
 
+    // If no data is loaded from anywhere such as Prismic then skip the preloader process
+    this.hasDataToLoad = false
+
     window.TEXTURES = {}
 
     this.elements.titleSpans = split({
@@ -39,7 +42,14 @@ export default class Preloader extends Component {
 
     this.length = 0
 
-    this.createLoader()
+    if (this.hasDataToLoad) {
+      this.createLoader()
+      console.log('has data')
+    }
+    else {
+      console.log('no data')
+      this.onLoaded()
+    }
   }
 
   createLoader () {

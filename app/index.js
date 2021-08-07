@@ -8,10 +8,7 @@ import Preloader from 'components/Preloader'
 import Transition from 'components/Transition'
 
 import About from 'pages/About'
-// import Collections from 'pages/Collections'
-import Details from 'pages/Details'
 import Home from 'pages/Home'
-import Domains from 'pages/Domains'
 
 class App {
   constructor () {
@@ -57,15 +54,11 @@ class App {
 
   createPages () {
     this.about = new About()
-    // this.collections = new Collections()
     this.home = new Home()
-    this.domains = new Domains()
 
     this.pages = {
       '/': this.home,
-      '/about': this.about,
-      '/domains': this.domains
-      // '/collections': this.collections,
+      '/about': this.about
     }
 
     this.page = this.pages[this.template]

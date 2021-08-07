@@ -21,16 +21,5 @@
 
 @import './layout/navigation';
 
-@import './pages/about/about';
-@import './pages/about/content';
-@import './pages/about/gallery';
-@import './pages/about/highlight';
-
-// @import './pages/collections/collections';
-@import './pages/domains/domains';
-
-@import './pages/details/details';
-// @import './pages/details/detailsdomain';
-
 @import './pages/home/home';
-@import './pages/home/misc';
+@import './utils/universal';

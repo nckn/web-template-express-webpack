@@ -2,7 +2,7 @@ import { Camera, Renderer, Transform } from 'ogl'
 
 import About from './About'
 // import Collections from './Collections'
-import Domains from './Domains'
+// import Domains from './Domains'
 import Home from './Home'
 
 export default class Canvas {
@@ -67,20 +67,6 @@ export default class Canvas {
       gl: this.gl,
       scene: this.scene,
       sizes: this.sizes
-    })
-  }
-  
-  /**
-   * domains.
-   */
-  createDomains () {
-    this.domains = new Domains({
-      camera: this.camera,
-      gl: this.gl,
-      renderer: this.renderer,
-      scene: this.scene,
-      sizes: this.sizes,
-      transition: this.transition
     })
   }
 

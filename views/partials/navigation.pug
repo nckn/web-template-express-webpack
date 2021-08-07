@@ -4,7 +4,10 @@ nav.navigation
     p.navigation__link__text USE
 
   ul.navigation__list
-    each item in navigation.data.list
-      li.navigation__list__item
-        a.navigation__list__link(data-animation="link" href=Link(item.link))
-          span=item.text === 'Domains' ? 'Our work' : item.text
+    //- each item in navigation.data.list
+    //-   li.navigation__list__item
+    //-     a.navigation__list__link(data-animation="link" href=Link(item.link))
+    //-       span=item.text === 'Domains' ? 'Our work' : item.text
+    li.navigation__list__item
+      a.navigation__list__link(data-animation="link" href="/")
+        span link

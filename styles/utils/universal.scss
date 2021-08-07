@@ -1,0 +1,19 @@
+.container {
+  @extend %fullsize;
+  
+  &.container--outer {
+    background: $color-20;
+  }
+  &.container--inner {
+    
+  }
+}
+
+.line-std {
+  // width: 100%;
+  width: 0%;
+  height: 1px;
+  background: #555555;
+  position: absolute;
+  top: 0;
+}

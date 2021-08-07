@@ -30,17 +30,9 @@ const initApi = req => {
 }
 
 const handleLinkResolver = doc => {
-  if (doc.type === 'project') {
-    return `/detail/${doc.uid}`
-  }
-  
-  if (doc.type === 'domains') {
-    return '/domains'
-  }
-
-  if (doc.type === 'about') {
-    return '/about'
-  }
+  // if (doc.type === 'project') {
+  //   return `/detail/${doc.uid}`
+  // }
 
   return '/'
 }
@@ -54,9 +46,9 @@ app.use((req, res, next) => {
 
   res.locals.Link = handleLinkResolver
 
-  res.locals.Numbers = index => {
-    return index == 0 ? 'One' : index == 1 ? 'Two' : index == 2 ? 'Three' : index == 3 ? 'Four' : '';
-  }
+  // res.locals.Numbers = index => {
+  //   return index == 0 ? 'One' : index == 1 ? 'Two' : index == 2 ? 'Three' : index == 3 ? 'Four' : '';
+  // }
 
   res.locals.PrismicDOM = PrismicDOM
 
@@ -158,11 +150,11 @@ const handleRequest = async api => {
 }
 
 app.get('/', async (req, res) => {
-  const api = await initApi(req)
-  const defaults = await handleRequest(api)
+  // const api = await initApi(req)
+  // const defaults = await handleRequest(api)
 
   res.render('base', {
-    ...defaults
+    // ...defaults
   })
 })
 
@@ -184,23 +176,23 @@ app.get('/about', async (req, res) => {
 //   })
 // })
 
-app.get('/domains', async (req, res) => {
-  const api = await initApi(req)
-  const defaults = await handleRequest(api)
+// app.get('/domains', async (req, res) => {
+//   const api = await initApi(req)
+//   const defaults = await handleRequest(api)
 
-  res.render('base', {
-    ...defaults
-  })
-})
+//   res.render('base', {
+//     ...defaults
+//   })
+// })
 
-app.get('/detail/:uid', async (req, res) => {
-  const api = await initApi(req)
-  const defaults = await handleRequest(api)
+// app.get('/detail/:uid', async (req, res) => {
+//   const api = await initApi(req)
+//   const defaults = await handleRequest(api)
 
-  res.render('base', {
-    ...defaults
-  })
-})
+//   res.render('base', {
+//     ...defaults
+//   })
+// })
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)

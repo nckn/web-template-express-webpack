@@ -1,5 +1,5 @@
 {
-  "name": "floema",
+  "name": "website template",
   "version": "1.0.0",
   "scripts": {
     "backend:build": "node app.js",
@@ -8,7 +8,7 @@
     "frontend:development": "webpack serve --progress --config webpack.config.development.js",
     "start": "concurrently --kill-others \"npm run backend:development\" \"npm run frontend:development\""
   },
-  "author": "Luis Henrique Bizarro",
+  "author": "Niels Konrad",
   "devDependencies": {
     "auto-bind": "^4.0.0",
     "babel-loader": "^8.2.2",
