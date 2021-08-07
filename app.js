@@ -42,8 +42,9 @@ if (app.get('env') === 'development') {
 app.use(errorHandlers.productionErrors);
 
 // start the app
-app.set('port', process.env.PORT || 7777);
+app.set('port', process.env.PORT || 1234);
 
 const server = app.listen(app.get('port'), () => {
-  console.log(`Express running → PORT ${server.address().port}`);
+  console.log(`Express running → PORT http://localhost:${server.address().port}`);
+  // console.log(`Express running → PORT http://localhost:${port}`);
 });
