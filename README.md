@@ -1,28 +1,51 @@
-# Express + Bootstrap + Font Awesome + Pug
+https://dev.to/simonpaix/10-useful-vs-code-shortcuts-you-should-know-42m
 
-This boilerplate loads [Bootstrap 4](https://getbootstrap.com/), [Font Awesome 4](https://fontawesome.com/), [jQuery](http://jquery.com/) and [popper.js](https://popper.js.org/) and more useful stuff.  
-We included everything you need to start a small project from scratch.
 
-The ```npm start``` command will not only start the application, but also watch for changes of your SCSS and JavaScript files, using [webpack](https://webpack.js.org/). The [nodemon](https://nodemon.io/) package is used to automatically restart the server, if your scripts change, while it's running.
 
-## Installation
 
-1. Download the boilerplate as .zip-file.
-1. Extract the files and copy them to your project root.
-1. Run ```npm install``` in your terminal to get all needed packages.
-1. Copy __the variables.env.sample__ file to __variables.env__.
-1. Run ```npm start``` to start the node.js application.
 
-## Configuration
+### Domains/Media
 
-The configuration of the basic application (environment + port) is done in the __variables.env__ file.  
-If you need more settings, that you would like to exclude from Git, you should add them here.
+```
+const fov = this.camera.fov * (Math.PI / 180)
+const height = 2 * Math.tan(fov / 2) * this.camera.position.z
+const width = height * this.camera.aspect
 
-## Routing
+this.sizes = {
+  height,
+  width
+}
 
-The routing is done in the __/routes/web.js__ file.  
-Just edit it and make it fit to your needs.
+They are "unit" values, could be seen as meters, like in Blender
+```
 
-## Views
+this.sizes.width
+is a float value, not the screen size in pixels but a unit number, eg. 5.4597...
 
-The views are located in the __/views/__ directory and we use [Pug](https://github.com/pugjs/pug) as the default template engine.
+this.x
+is a fraction of the sizes width value
+
+
+
+
+
+
+interpolate(startValue, endValue, progress)
+startValue : * - The starting value. This can be almost any data type (Number, String, Array, complex String, color, Object)
+endValue : * - The ending value. This can be almost any data type, as long as it matches the startValue
+progress : Number - A value between 0 and 1 where 0 is the start, 0.5 is halfway between, and 1 is the end.
+
+
+
+
+getBoundingClientRect
+{
+  bottom: 895.8359375
+  height: 807.671875
+  left: 303.8999938964844
+  right: 876.0562438964844
+  top: 88.1640625
+  width: 572.15625
+  x: 303.8999938964844
+  y: 88.1640625
+}
