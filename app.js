@@ -144,36 +144,36 @@ const handleRequest = async api => {
   })
 
   return {
-    about,
-    assets,
-    domains,
     home,
-    meta,
-    navigation,
-    preloader,
-    // products,
-    domainProjects,
-    projects
+    // about,
+    // assets,
+    // domains,
+    // meta,
+    // navigation,
+    // preloader,
+    // // products,
+    // domainProjects,
+    // projects
   }
 }
 
 app.get('/', async (req, res) => {
-  const api = await initApi(req)
-  const defaults = await handleRequest(api)
+  // const api = await initApi(req)
+  // const defaults = await handleRequest(api)
 
   res.render('base', {
-    ...defaults
+    // ...defaults
   })
 })
 
-app.get('/about', async (req, res) => {
-  const api = await initApi(req)
-  const defaults = await handleRequest(api)
+// app.get('/about', async (req, res) => {
+//   const api = await initApi(req)
+//   const defaults = await handleRequest(api)
 
-  res.render('base', {
-    ...defaults
-  })
-})
+//   res.render('base', {
+//     ...defaults
+//   })
+// })
 
 // app.get('/collections', async (req, res) => {
 //   const api = await initApi(req)
@@ -193,14 +193,14 @@ app.get('/domains', async (req, res) => {
   })
 })
 
-app.get('/detail/:uid', async (req, res) => {
-  const api = await initApi(req)
-  const defaults = await handleRequest(api)
+// app.get('/detail/:uid', async (req, res) => {
+//   const api = await initApi(req)
+//   const defaults = await handleRequest(api)
 
-  res.render('base', {
-    ...defaults
-  })
-})
+//   res.render('base', {
+//     ...defaults
+//   })
+// })
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
