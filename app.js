@@ -1,208 +1,49 @@
-require('dotenv').config()
-
-const logger = require('morgan')
+const path = require('path');
 const express = require('express')
-const errorHandler = require('errorhandler')
-const bodyParser = require('body-parser')
-const methodOverride = require('method-override')
-const find = require('lodash/find')
+const routes = require('./routes/web');
+const helpers = require('./helpers')
+const errorHandlers = require('./handlers/errorHandlers');
 
+// import environmental variables
+require('dotenv').config({ path: 'variables.env' });
+
+// create the app
 const app = express()
-const path = require('path')
-const port = 3000
 
-app.use(logger('dev'))
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(methodOverride())
-app.use(errorHandler())
-app.use(express.static(path.join(__dirname, 'public')))
+// set the template engine
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
 
-// const Prismic = require('@prismicio/client')
-const PrismicDOM = require('prismic-dom')
-const UAParser = require('ua-parser-js')
-
-const initApi = req => {
-  return Prismic.getApi(process.env.PRISMIC_ENDPOINT, {
-    accessToken: process.env.PRISMIC_ACCESS_TOKEN,
-    req
-  })
-}
-
-const handleLinkResolver = doc => {
-  if (doc.type === 'project') {
-    return `/detail/${doc.uid}`
-  }
-  
-  if (doc.type === 'domains') {
-    return '/domains'
-  }
-
-  if (doc.type === 'about') {
-    return '/about'
-  }
-
-  return '/'
-}
-
-app.use((req, res, next) => {
-  const ua = UAParser(req.headers['user-agent'])
-
-  res.locals.isDesktop = ua.device.type === undefined
-  res.locals.isPhone = ua.device.type === 'mobile'
-  res.locals.isTablet = ua.device.type === 'tablet'
-
-  res.locals.Link = handleLinkResolver
-
-  // res.locals.Numbers = index => {
-  //   return index == 0 ? 'One' : index == 1 ? 'Two' : index == 2 ? 'Three' : index == 3 ? 'Four' : '';
-  // }
-
-  // res.locals.PrismicDOM = PrismicDOM
-
-  next()
+// load helpers
+app.use((request, response, next) => {
+  response.locals.helpers = helpers
+  next();
 })
 
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'pug')
+// serves up static files from the public folder. Anything in public/ will just be served up as the file it is
+app.use(express.static(path.join(__dirname, 'public')));
 
-const handleRequest = async api => {
-  const about = await api.getSingle('about')
-  const home = await api.getSingle('home')
-  const meta = await api.getSingle('meta')
-  const navigation = await api.getSingle('navigation')
-  const preloader = await api.getSingle('preloader')
+// set route handling
+app.use('/', routes);
 
-  // console.log(home)
+// if above routes didnt work, we 404 them and forward to error handler
+app.use(errorHandlers.notFound);
 
-  // console.log('productsData')
-  // console.log(productsData[0])
-  
-  const { results: domains } = await api.query(Prismic.Predicates.at('document.type', 'domain'), {
-    fetchLinks: 'project.project_main_image'
-  })
-  console.log('domains')
-  console.log(domains)
-  // console.log('domains project url')
-  // // console.log(domains[0].data.projects[0].domain_project.data.project_main_image)
-  // console.log(domains[0].data)
-  
-  const { results: projectsData } = await api.query(Prismic.Predicates.at('document.type', 'project'), {
-    fetchLinks: 'domain.title',
-    pageSize: 100
-  })
+// one of our error handlers will see if these errors are just validation errors
+app.use(errorHandlers.flashValidationErrors);
 
-  const projects = projectsData
-  console.log('projectsData')
-  console.log(projectsData[0].data.project_main_image)
-  
-  // const products = []
-  
-  const domainProjects = []
-
-  domains.forEach(domain => {
-    // console.log('domain')
-    // console.log(domain)
-    domain.data.projects.forEach(({ domain_project: { uid } }, index) => {
-      // console.log('projectsData')
-      // console.log(projectsData)
-      // console.log('domain')
-      // console.log(domain.data)
-      // if (index === 0) {
-      //   console.log('domain')
-      //   console.log(domain.data.domain_projects)
-      // }
-      domainProjects.push(find(projectsData, { uid }))
-    })
-  })
-
-  const assets = []
-
-  home.data.gallery.forEach(item => {
-    assets.push(item.image.url)
-  })
-
-  about.data.gallery.forEach(item => {
-    assets.push(item.image.url)
-  })
-
-  about.data.body.forEach(section => {
-    if (section.slice_type === 'gallery') {
-      section.items.forEach(item => {
-        assets.push(item.image.url)
-      })
-    }
-  })
-  
-  domains.forEach(domain => {
-    domain.data.projects.forEach(item => {
-      // console.log('item')
-      // console.log(item)
-      assets.push(item.domain_project.data.project_main_image.url)
-      // assets.push(item.products_product.data.model.url)
-    })
-  })
-
-  return {
-    home,
-    // meta,
-    // about,
-    // assets,
-    // domains,
-    // navigation,
-    // preloader,
-    // domainProjects,
-    // projects
-  }
+// otherwise this was a really bad error we didn't expect!
+if (app.get('env') === 'development') {
+  /* Development Error Handler - Prints stack trace */
+  app.use(errorHandlers.developmentErrors);
 }
 
-app.get('/', async (req, res) => {
+// production error handler
+app.use(errorHandlers.productionErrors);
 
-  // Necessary if Prismic is involved
-  // const api = await initApi(req)
-  // const defaults = await handleRequest(api)
+// start the app
+app.set('port', process.env.PORT || 7777);
 
-  res.render('base', {
-    // ...defaults
-  })
-})
-
-// app.get('/about', async (req, res) => {
-//   const api = await initApi(req)
-//   const defaults = await handleRequest(api)
-
-//   res.render('base', {
-//     ...defaults
-//   })
-// })
-
-// app.get('/collections', async (req, res) => {
-//   const api = await initApi(req)
-//   const defaults = await handleRequest(api)
-
-//   res.render('base', {
-//     ...defaults
-//   })
-// })
-
-// app.get('/domains', async (req, res) => {
-//   const api = await initApi(req)
-//   const defaults = await handleRequest(api)
-
-//   res.render('base', {
-//     ...defaults
-//   })
-// })
-
-// app.get('/detail/:uid', async (req, res) => {
-//   const api = await initApi(req)
-//   const defaults = await handleRequest(api)
-
-//   res.render('base', {
-//     ...defaults
-//   })
-// })
-
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
+const server = app.listen(app.get('port'), () => {
+  console.log(`Express running → PORT ${server.address().port}`);
+});

@@ -1,127 +1,67 @@
-const path = require('path')
-const webpack = require('webpack')
+const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+// JS file handler
+const javascript = {
+  test: /\.(js)$/,
+  use: [{
+    loader: 'babel-loader',
+    options: { presets: ['env'] }
+  }],
+};
 
-const IS_DEVELOPMENT = process.env.NODE_ENV === 'dev'
-
-const dirApp = path.join(__dirname, 'app')
-const dirAssets = path.join(__dirname, 'assets')
-const dirStyles = path.join(__dirname, 'styles')
-const dirNode = 'node_modules'
-
-module.exports = {
-  entry: [
-    path.join(dirApp, 'index.js'),
-    path.join(dirStyles, 'index.scss')
-  ],
-
-  resolve: {
-    modules: [
-      dirApp,
-      dirAssets,
-      dirNode
-    ]
-  },
-
-  plugins: [
-    new webpack.DefinePlugin({
-      IS_DEVELOPMENT
-    }),
-
-    new webpack.ProvidePlugin({
-
-    }),
-
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: './app/service-worker.js',
-          to: ''
-        },
-        {
-          from: './offline.html',
-          to: ''
-        },
-        {
-          from: './shared',
-          to: ''
-        }
-      ],
-    }),
-
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css'
-    })
-  ],
-
-  module: {
-    rules: [
-      {
-        test: /\.pug$/,
-        use: ['pug-loader']
-      },
-
-      {
-        test: /\.js$/,
-        use: {
-          loader: 'babel-loader'
-        }
-      },
-
-      {
-        test: /\.(sa|sc|c)ss$/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              publicPath: ''
-            }
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: false
-            }
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              sourceMap: false
-            }
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: false
-            }
-          }
-        ]
-      },
-
-      {
-        test: /\.(jpe?g|png|gif|svg|woff2?|fnt|webp)$/,
-        loader: 'file-loader',
-        options: {
-          name (file) {
-            return '[hash].[ext]'
-          }
-        }
-      },
-
-      {
-        test: /\.(glsl|frag|vert)$/,
-        loader: 'raw-loader',
-        exclude: /node_modules/
-      },
-
-      {
-        test: /\.(glsl|frag|vert)$/,
-        loader: 'glslify-loader',
-        exclude: /node_modules/
-      }
-    ]
+// postCSS loader
+const postcss = {
+  loader: 'postcss-loader',
+  options: {
+    sourceMap: true,
+    plugins() { return [autoprefixer({ browsers: 'last 3 versions' })]; }
   }
-}
+};
+
+// sass/css loader
+const styles = {
+  test: /\.(scss)$/,
+  use: ExtractTextPlugin.extract(['css-loader?sourceMap', postcss, 'sass-loader?sourceMap'])
+};
+
+// compress JS
+const uglify = new webpack.optimize.UglifyJsPlugin({ // eslint-disable-line
+  compress: { warnings: false }
+});
+
+// font awesome
+const fontAwesome =        {
+  test: /.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+  use: [{
+    loader: 'file-loader',
+    options: {
+      name: '[name].[ext]',
+      outputPath: 'fonts/',    // where the fonts will go
+    }
+  }]
+};
+
+// bundle everything
+const config = {
+  entry: {
+    app: './public/javascript/app.js'
+  },
+  devtool: 'source-map',
+  output: {
+    path: path.resolve(__dirname, 'public', 'dist'),
+    filename: '[name].bundle.js'
+  },
+  module: {
+    rules: [javascript, styles, fontAwesome]
+  },
+  plugins: [
+    new ExtractTextPlugin('style.css'),
+  ]
+};
+
+process.noDeprecation = true;
+
+module.exports = config;
