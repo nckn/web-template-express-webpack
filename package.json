@@ -4,21 +4,28 @@
   "description": "A simple boileplate for express websites",
   "main": "app.js",
   "scripts": {
-    "prod": "node ./app.js",
-    "watch": "nodemon ./app.js --ignore public/",
-    "start": "concurrently \"npm run watch\" \"npm run assets\" --names \"💻,📦\" --prefix name",
-    "assets": "webpack -w --display-max-modules 0"
+    "backend:build": "node app.js",
+    "backend:development": "nodemon app.js",
+    "frontend:build": "webpack --progress --config webpack.config.build.js",
+    "frontend:development": "webpack serve --progress --config webpack.config.development.js",
+    "start": "concurrently --kill-others \"npm run backend:development\" \"npm run frontend:development\""
   },
   "author": "Niels Konrad",
   "license": "MIT",
   "dependencies": {
+    "@prismicio/client": "^5.1.0",
     "bootstrap": "^5.1.0",
     "dotenv": "^10.0.0",
+    "errorhandler": "^1.5.1",
     "express": "^4.17.1",
     "font-awesome": "^4.7.0",
     "jquery": "^3.6.0",
+    "method-override": "^3.0.0",
+    "morgan": "^1.10.0",
     "popper.js": "^1.16.1",
-    "pug": "^3.0.2"
+    "prismic-dom": "^2.2.6",
+    "pug": "^3.0.2",
+    "ua-parser-js": "^0.7.28"
   },
   "devDependencies": {
     "auto-bind": "^4.0.0",
