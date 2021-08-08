@@ -117,17 +117,14 @@ export default class Canvas {
       sizes: this.sizes
     }
 
-    if (this.about) {
-      this.about.onResize(values)
-    }
-    
-    if (this.domains) {
-      this.domains.onResize(values)
-    }
+    // if (this.home) {
+    //   this.home.onResize(values)
+    // }
 
-    if (this.home) {
-      this.home.onResize(values)
-    }
+    // if (this.about) {
+    //   this.about.onResize(values)
+    // }
+
   }
 
   onTouchDown (event) {
@@ -143,10 +140,6 @@ export default class Canvas {
 
     if (this.about) {
       this.about.onTouchDown(values)
-    }
-    
-    if (this.domains) {
-      this.domains.onTouchDown(values)
     }
 
     if (this.home) {
@@ -164,10 +157,6 @@ export default class Canvas {
     const values = {
       x: this.x,
       y: this.y
-    }
-    
-    if (this.domains) {
-      this.domains.onTouchMove(values)
     }
 
     if (!this.isDown) return
@@ -198,10 +187,6 @@ export default class Canvas {
     if (this.about) {
       this.about.onTouchUp(values)
     }
-    
-    if (this.domains) {
-      this.domains.onTouchUp(values)
-    }
 
     if (this.home) {
       this.home.onTouchUp(values)
@@ -209,10 +194,6 @@ export default class Canvas {
   }
 
   onWheel (event) {
-    
-    if (this.domains) {
-      this.domains.onWheel(event)
-    }
 
     if (this.home) {
       this.home.onWheel(event)
@@ -225,10 +206,6 @@ export default class Canvas {
   update (scroll) {
     if (this.about) {
       this.about.update(scroll)
-    }
-    
-    if (this.domains) {
-      this.domains.update()
     }
 
     if (this.home) {

@@ -43,7 +43,7 @@ class App {
       canvas: this.canvas,
       callbackFakingPreloading: () => {
         console.log('faking preloading works')
-        this.onPreloaded()
+        // this.onPreloaded()
         // self.assignRightSize();
       }
     })

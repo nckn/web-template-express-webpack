@@ -55,15 +55,15 @@ export default class Preloader extends Component {
       // console.log('callback')
       this.callback()
       // animate and remove the .preloader elem after 1000 ms
-      setTimeout(_ => {
-        this.animateOut.to(this.element, {
-          autoAlpha: 0,
-          duration: 1
-        })
-        this.animateOut.call(_ => {
-          this.destroy()
-        })
-      }, 1000)
+      // setTimeout(_ => {
+      //   this.animateOut.to(this.element, {
+      //     autoAlpha: 0,
+      //     duration: 1
+      //   })
+      //   this.animateOut.call(_ => {
+      //     this.destroy()
+      //   })
+      // }, 1000)
       // console.log(this)
     }
   }
@@ -146,7 +146,7 @@ export default class Preloader extends Component {
 
   onLoaded () {
     let self = this
-    // console.log('onLoaded method')
+    console.log('onLoaded method')
     // console.log(this)
     // window.requestAnimationFrame(_ => {
     //   self.emit('completed')
@@ -206,6 +206,7 @@ export default class Preloader extends Component {
   }
 
   destroy () {
+    console.log('trying to destroy')
     this.element.parentNode.removeChild(this.element)
   }
 }
