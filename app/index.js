@@ -7,8 +7,8 @@ import Navigation from 'components/Navigation'
 import Preloader from 'components/Preloader'
 import Transition from 'components/Transition'
 
-import About from 'pages/About'
 import Home from 'pages/Home'
+// import About from 'pages/About'
 
 class App {
   constructor () {
@@ -44,7 +44,6 @@ class App {
       callbackFakingPreloading: () => {
         console.log('faking preloading works')
         // this.onPreloaded()
-        // self.assignRightSize();
       }
     })
 
@@ -62,12 +61,15 @@ class App {
   }
 
   createPages () {
-    this.about = new About()
+    // console.log('creates page?')
     this.home = new Home()
+    // this.about = new About()
+    // console.log('home')
+    // console.log(this.home)
 
     this.pages = {
       '/': this.home,
-      '/about': this.about
+      // '/about': this.about
     }
 
     this.page = this.pages[this.template]
@@ -127,9 +129,9 @@ class App {
   }
 
   onResize () {
-    // if (this.page && this.page.onResize) {
-    //   this.page.onResize()
-    // }
+    if (this.page && this.page.onResize) {
+      this.page.onResize()
+    }
 
     window.requestAnimationFrame(_ => {
       if (this.canvas && this.canvas.onResize) {
@@ -143,9 +145,9 @@ class App {
       this.canvas.onTouchDown(event)
     }
 
-    // if (this.page && this.page.onTouchDown) {
-    //   this.page.onTouchDown(event)
-    // }
+    if (this.page && this.page.onTouchDown) {
+      this.page.onTouchDown(event)
+    }
   }
 
   onTouchMove (event) {
@@ -153,9 +155,9 @@ class App {
       this.canvas.onTouchMove(event)
     }
 
-    // if (this.page && this.page.onTouchDown) {
-    //   this.page.onTouchMove(event)
-    // }
+    if (this.page && this.page.onTouchDown) {
+      this.page.onTouchMove(event)
+    }
   }
 
   onTouchUp (event) {
@@ -163,9 +165,9 @@ class App {
       this.canvas.onTouchUp(event)
     }
 
-    // if (this.page && this.page.onTouchDown) {
-    //   this.page.onTouchUp(event)
-    // }
+    if (this.page && this.page.onTouchDown) {
+      this.page.onTouchUp(event)
+    }
   }
 
   onWheel (event) {

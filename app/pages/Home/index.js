@@ -1,8 +1,8 @@
 import Page from 'classes/Page'
 
-// import Titles from './Titles'
-import Link from 'animations/Link'
-import { mapEach } from 'utils/dom'
+import Titles from './Titles'
+// import Link from 'animations/Link'
+// import { mapEach } from 'utils/dom'
 
 export default class extends Page {
   constructor () {
@@ -19,8 +19,8 @@ export default class extends Page {
 
         navigation: document.querySelector('.navigation'),
         // link: '.home__link',
-        // list: '.home__titles',
-        // items: '.home__titles__text__pair', // The ones that are translated
+        list: '.home__titles',
+        items: '.home__titles__text__pair', // The ones that are translated
         titles: '.home__titles__title__text'
       }
     })
@@ -36,18 +36,21 @@ export default class extends Page {
   }
 
   create () {
+    // console.log('elements titles')
+    // console.log(this.elements)
+
     super.create()
 
-    // this.titles = new Titles({
-    //   element: document.body,
-    //   elements: {
-    //     // list: this.elements.list,
-    //     // items: this.elements.items,
-    //     titles: this.elements.titles
-    //   }
-    // })
+    this.titles = new Titles({
+      element: document.body,
+      elements: {
+        list: this.elements.list,
+        items: this.elements.items,
+        titles: this.elements.titles
+      }
+    })
 
-    // this.titles.enable()
+    this.titles.enable()
   }
 
   /**
@@ -70,36 +73,36 @@ export default class extends Page {
   /**
    * Events.
    */
-  // onResize () {
-  //   super.onResize()
+  onResize () {
+    super.onResize()
 
-  //   this.titles.onResize()
-  // }
+    this.titles.onResize()
+  }
 
-  // onTouchDown (event) {
-  //   this.titles.onTouchDown(event)
-  // }
+  onTouchDown (event) {
+    this.titles.onTouchDown(event)
+  }
 
-  // onTouchMove (event) {
-  //   this.titles.onTouchMove(event)
-  // }
+  onTouchMove (event) {
+    this.titles.onTouchMove(event)
+  }
 
-  // onTouchUp (event) {
-  //   this.titles.onTouchUp(event)
-  // }
+  onTouchUp (event) {
+    this.titles.onTouchUp(event)
+  }
 
   onWheel (event) {
     console.log('onWheel pages/Home')
-    // this.titles.onWheel(event)
+    this.titles.onWheel(event)
   }
 
   /**
    * Loop.
    */
   update () {
-    // super.update()
+    super.update()
 
-    // this.titles.update()
+    this.titles.update()
   }
 
   /**

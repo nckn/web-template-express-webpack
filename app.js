@@ -158,14 +158,14 @@ app.get('/', async (req, res) => {
   })
 })
 
-app.get('/about', async (req, res) => {
-  const api = await initApi(req)
-  const defaults = await handleRequest(api)
+// app.get('/about', async (req, res) => {
+//   const api = await initApi(req)
+//   const defaults = await handleRequest(api)
 
-  res.render('base', {
-    ...defaults
-  })
-})
+//   res.render('base', {
+//     ...defaults
+//   })
+// })
 
 // app.get('/collections', async (req, res) => {
 //   const api = await initApi(req)

@@ -24,7 +24,13 @@ export default class extends EventEmitter {
   constructor ({ classes, element, elements, isScrollable = true }) {
     super()
 
+    console.log('this 1')
+    console.log(this)
+    
     AutoBind(this)
+    
+    console.log('this 2')
+    console.log(this)
 
     this.classes = {
       ...classes
@@ -33,19 +39,19 @@ export default class extends EventEmitter {
     this.selectors = {
       element,
       elements: {
-        preloaders: '[data-src]',
+        // preloaders: '[data-src]',
 
-        animationsButtons: '[data-animation="button"]',
-        animationsLinks: '[data-animation="link"]',
-        animationsMagnetics: '[data-animation="magnetic"]',
-        animationsParallaxes: '[data-animation="parallax"]',
+        // animationsButtons: '[data-animation="button"]',
+        // animationsLinks: '[data-animation="link"]',
+        // animationsMagnetics: '[data-animation="magnetic"]',
+        // animationsParallaxes: '[data-animation="parallax"]',
         animationsParagraphs: '[data-animation="paragraph"]',
-        animationsRotations: '[data-animation="rotation"]',
-        animationsTranslates: '[data-animation="translate"]',
-        animationsSeperators: '[data-animation="seperator"]',
+        // animationsRotations: '[data-animation="rotation"]',
+        // animationsTranslates: '[data-animation="translate"]',
+        // animationsSeperators: '[data-animation="seperator"]',
 
-        footer: '.footer',
-        footerCredits: '.footer__credits',
+        // footer: '.footer',
+        // footerCredits: '.footer__credits',
 
         ...elements
       }
@@ -62,8 +68,14 @@ export default class extends EventEmitter {
     this.isScrollable = isScrollable
 
     this.transformPrefix = Prefix('transform')
-
+    
+    
     this.create()
+    
+    // console.log('this.element is in init: ')
+    // console.log(this.element)
+    // console.log('trying to log the wrapper')
+    // console.log(this.elements.wrapper)
   }
 
   create () {
@@ -72,7 +84,13 @@ export default class extends EventEmitter {
     this.element = document.querySelector(this.selectors.element)
     this.elements = {}
 
-    return
+    console.log('this.element is in init: ')
+    console.log(this.element)
+
+    console.log('trying to log the wrapper')
+    console.log(this.elements.wrapper)
+
+    // return
 
     each(this.selectors.elements, (selector, key) => {
       if (selector instanceof window.HTMLElement || selector instanceof window.NodeList) {
@@ -80,10 +98,11 @@ export default class extends EventEmitter {
       } else if (Array.isArray(selector)) {
         this.elements[key] = selector
       } else {
-        console.log('this.element.querySelectorAll(selector)')
-        if (this.element === null) {
-          return
-        }
+        console.log('this.element is. how is it going: ')
+        console.log(this.element)
+        // if (this.element === null) {
+        //   return
+        // }
         this.elements[key] = this.element.querySelectorAll(selector)
 
         if (this.elements[key].length === 0) {
@@ -105,8 +124,9 @@ export default class extends EventEmitter {
     }
 
     this.createAnimations()
-    // this.createObserver()
+    this.createObserver()
     this.createPreloaders()
+
   }
 
   /**
@@ -195,17 +215,17 @@ export default class extends EventEmitter {
   /**
    * Observer.
    */
-  // createObserver () {
-  //   this.observer = new window.ResizeObserver(entries => {
-  //     for (const entry of entries) { // eslint-disable-line
-  //       window.requestAnimationFrame(_ => {
-  //         this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
-  //       })
-  //     }
-  //   })
+  createObserver () {
+    this.observer = new window.ResizeObserver(entries => {
+      for (const entry of entries) { // eslint-disable-line
+        window.requestAnimationFrame(_ => {
+          this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
+        })
+      }
+    })
 
-  //   this.observer.observe(this.elements.wrapper)
-  // }
+    this.observer.observe(this.elements.wrapper)
+  }
 
   /**
    * Footer.
@@ -267,17 +287,17 @@ export default class extends EventEmitter {
   /**
    * Events.
    */
-  // onResize () {
-  //   if (!this.elements.wrapper) return
+  onResize () {
+    if (!this.elements.wrapper) return
 
-  //   window.requestAnimationFrame(_ => {
-  //     this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
+    window.requestAnimationFrame(_ => {
+      this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
 
-  //     each(this.animations, animation => {
-  //       animation.onResize && animation.onResize()
-  //     })
-  //   })
-  // }
+      each(this.animations, animation => {
+        animation.onResize && animation.onResize()
+      })
+    })
+  }
 
   onTouchDown (event) {
     if (!Detection.isPhone()) return

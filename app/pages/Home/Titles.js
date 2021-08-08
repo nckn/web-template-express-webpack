@@ -38,6 +38,9 @@ export default class extends Component {
       element.position = 0
     })
 
+    console.log('..............')
+    console.log(this.elements.items[0])
+
     this.length = this.elements.items.length
 
     this.height = this.elements.items[0].height
