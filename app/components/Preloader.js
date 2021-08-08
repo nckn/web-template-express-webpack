@@ -9,7 +9,7 @@ import { DEFAULT as ease } from 'utils/easings'
 import { split } from 'utils/text'
 
 export default class Preloader extends Component {
-  constructor ({ canvas }) {
+  constructor ({ canvas, callbackFakingPreloading }) {
     super({
       element: '.preloader',
       elements: {
@@ -20,6 +20,8 @@ export default class Preloader extends Component {
     })
 
     this.canvas = canvas
+
+    this.callback = callbackFakingPreloading
 
     // If no data is loaded from anywhere such as Prismic then skip the preloader process
     this.hasDataToLoad = false
@@ -46,9 +48,23 @@ export default class Preloader extends Component {
       this.createLoader()
       console.log('has data')
     }
+    // Faking the preloader
     else {
       console.log('no data')
       this.onLoaded()
+      // console.log('callback')
+      this.callback()
+      // animate and remove the .preloader elem after 1000 ms
+      setTimeout(_ => {
+        this.animateOut.to(this.element, {
+          autoAlpha: 0,
+          duration: 1
+        })
+        this.animateOut.call(_ => {
+          this.destroy()
+        })
+      }, 1000)
+      // console.log(this)
     }
   }
 
@@ -112,6 +128,7 @@ export default class Preloader extends Component {
     })
   }
 
+  // Run every time an image asset has been loaded
   onAssetLoaded (image) {
     this.length += 1
 
@@ -122,9 +139,23 @@ export default class Preloader extends Component {
     if (percent === 1) {
       this.onLoaded()
     }
+
+    // console.log('an image asset has been loaded')
+    // console.log(percent)
   }
 
   onLoaded () {
+    let self = this
+    // console.log('onLoaded method')
+    // console.log(this)
+    // window.requestAnimationFrame(_ => {
+    //   self.emit('completed')
+    // })
+    // if (!this.hasDataToLoad) {
+    //   console.log('has no data should tell that to parent')
+    //   self.emit('completed')
+    //   return
+    // }
     return new Promise(resolve => {
       this.emit('completed')
 

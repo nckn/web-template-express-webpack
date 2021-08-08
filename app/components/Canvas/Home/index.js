@@ -48,11 +48,11 @@ export default class {
     this.velocity = 0
 
     this.createGeometry()
-    this.createGallery()
+    // this.createGallery()
 
-    this.onResize({
-      sizes: this.sizes
-    })
+    // this.onResize({
+    //   sizes: this.sizes
+    // })
   }
 
   createGeometry () {
@@ -81,7 +81,7 @@ export default class {
   show (isPreloaded) {
     this.group.setParent(this.scene)
 
-    map(this.medias, media => media.show(isPreloaded))
+    // map(this.medias, media => media.show(isPreloaded))
   }
 
   hide () {
@@ -93,20 +93,20 @@ export default class {
   /**
    * Events.
    */
-  onResize (event) {
-    this.galleryBounds = this.galleryElement.getBoundingClientRect()
+  // onResize (event) {
+  //   this.galleryBounds = this.galleryElement.getBoundingClientRect()
 
-    this.sizes = event.sizes
+  //   this.sizes = event.sizes
 
-    this.gallerySizes = {
-      height: this.galleryBounds.height / window.innerHeight * this.sizes.height,
-      width: this.galleryBounds.width / window.innerWidth * this.sizes.width,
-    }
+  //   this.gallerySizes = {
+  //     height: this.galleryBounds.height / window.innerHeight * this.sizes.height,
+  //     width: this.galleryBounds.width / window.innerWidth * this.sizes.width,
+  //   }
 
-    this.scroll.y = this.y.target = 0
+  //   this.scroll.y = this.y.target = 0
 
-    map(this.medias, media => media.onResize(event, this.scroll))
-  }
+  //   map(this.medias, media => media.onResize(event, this.scroll))
+  // }
 
   onTouchDown ({ x, y }) {
     // this.scrollCurrent.x = this.scroll.x

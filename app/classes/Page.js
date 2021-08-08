@@ -72,12 +72,18 @@ export default class extends EventEmitter {
     this.element = document.querySelector(this.selectors.element)
     this.elements = {}
 
+    return
+
     each(this.selectors.elements, (selector, key) => {
       if (selector instanceof window.HTMLElement || selector instanceof window.NodeList) {
         this.elements[key] = selector
       } else if (Array.isArray(selector)) {
         this.elements[key] = selector
       } else {
+        console.log('this.element.querySelectorAll(selector)')
+        if (this.element === null) {
+          return
+        }
         this.elements[key] = this.element.querySelectorAll(selector)
 
         if (this.elements[key].length === 0) {
@@ -99,7 +105,7 @@ export default class extends EventEmitter {
     }
 
     this.createAnimations()
-    this.createObserver()
+    // this.createObserver()
     this.createPreloaders()
   }
 
@@ -189,17 +195,17 @@ export default class extends EventEmitter {
   /**
    * Observer.
    */
-  createObserver () {
-    this.observer = new window.ResizeObserver(entries => {
-      for (const entry of entries) { // eslint-disable-line
-        window.requestAnimationFrame(_ => {
-          this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
-        })
-      }
-    })
+  // createObserver () {
+  //   this.observer = new window.ResizeObserver(entries => {
+  //     for (const entry of entries) { // eslint-disable-line
+  //       window.requestAnimationFrame(_ => {
+  //         this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
+  //       })
+  //     }
+  //   })
 
-    this.observer.observe(this.elements.wrapper)
-  }
+  //   this.observer.observe(this.elements.wrapper)
+  // }
 
   /**
    * Footer.
@@ -261,17 +267,17 @@ export default class extends EventEmitter {
   /**
    * Events.
    */
-  onResize () {
-    if (!this.elements.wrapper) return
+  // onResize () {
+  //   if (!this.elements.wrapper) return
 
-    window.requestAnimationFrame(_ => {
-      this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
+  //   window.requestAnimationFrame(_ => {
+  //     this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
 
-      each(this.animations, animation => {
-        animation.onResize && animation.onResize()
-      })
-    })
-  }
+  //     each(this.animations, animation => {
+  //       animation.onResize && animation.onResize()
+  //     })
+  //   })
+  // }
 
   onTouchDown (event) {
     if (!Detection.isPhone()) return

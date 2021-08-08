@@ -74,30 +74,24 @@ export default class Canvas {
    * Events.
    */
   onPreloaded () {
-    this.createAbout()
-    this.createDomains()
     this.createHome()
+    this.createAbout()
+    // this.createDomains()
 
     this.onChange(this.template, true)
   }
 
   onChange (template, isPreloaded) {
-    if (template === '/about') {
-      this.about.show(isPreloaded)
-    } else {
-      this.about.hide()
-    }
-   
-    if (template === '/domains') {
-      this.domains.show(isPreloaded)
-    } else {
-      this.domains.hide()
-    }
-
     if (template === '/') {
       this.home.show(isPreloaded)
     } else {
       this.home.hide()
+    }
+
+    if (template === '/about') {
+      this.about.show(isPreloaded)
+    } else {
+      this.about.hide()
     }
 
     this.template = template

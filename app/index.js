@@ -35,8 +35,17 @@ class App {
   }
 
   createPreloader () {
+    console.log('creating preloader')
+    console.log('canvas')
+    console.log(this.canvas)
+
     this.preloader = new Preloader({
-      canvas: this.canvas
+      canvas: this.canvas,
+      callbackFakingPreloading: () => {
+        console.log('faking preloading works')
+        this.onPreloaded()
+        // self.assignRightSize();
+      }
     })
 
     this.preloader.once('completed', this.onPreloaded.bind(this))
@@ -62,17 +71,23 @@ class App {
     }
 
     this.page = this.pages[this.template]
+
+    this.page.show()
   }
 
   /**
    * Events.
    */
-  onPreloaded () {
+  async onPreloaded () {
     this.onResize()
 
     this.canvas.onPreloaded()
 
-    this.page.show()
+    console.log('we are done preloading')
+    // await this.page.show()
+    // setTimeout(_ => {
+    //   this.page.show()
+    // }, 2000)
   }
 
   onPopState () {
@@ -112,9 +127,9 @@ class App {
   }
 
   onResize () {
-    if (this.page && this.page.onResize) {
-      this.page.onResize()
-    }
+    // if (this.page && this.page.onResize) {
+    //   this.page.onResize()
+    // }
 
     window.requestAnimationFrame(_ => {
       if (this.canvas && this.canvas.onResize) {
@@ -128,9 +143,9 @@ class App {
       this.canvas.onTouchDown(event)
     }
 
-    if (this.page && this.page.onTouchDown) {
-      this.page.onTouchDown(event)
-    }
+    // if (this.page && this.page.onTouchDown) {
+    //   this.page.onTouchDown(event)
+    // }
   }
 
   onTouchMove (event) {
@@ -138,9 +153,9 @@ class App {
       this.canvas.onTouchMove(event)
     }
 
-    if (this.page && this.page.onTouchDown) {
-      this.page.onTouchMove(event)
-    }
+    // if (this.page && this.page.onTouchDown) {
+    //   this.page.onTouchMove(event)
+    // }
   }
 
   onTouchUp (event) {
@@ -148,9 +163,9 @@ class App {
       this.canvas.onTouchUp(event)
     }
 
-    if (this.page && this.page.onTouchDown) {
-      this.page.onTouchUp(event)
-    }
+    // if (this.page && this.page.onTouchDown) {
+    //   this.page.onTouchUp(event)
+    // }
   }
 
   onWheel (event) {
@@ -160,9 +175,9 @@ class App {
       this.canvas.onWheel(normalizedWheel)
     }
 
-    if (this.page && this.page.onWheel) {
-      this.page.onWheel(normalizedWheel)
-    }
+    // if (this.page && this.page.onWheel) {
+    //   this.page.onWheel(normalizedWheel)
+    // }
   }
 
   /**

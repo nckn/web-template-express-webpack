@@ -16,29 +16,29 @@ export default class {
     this.createGeometry()
     // this.createGalleries()
 
-    this.onResize({
-      sizes: this.sizes
-    })
+    // this.onResize({
+    //   sizes: this.sizes
+    // })
   }
 
   createGeometry () {
     this.geometry = new Plane(this.gl)
   }
 
-  createGalleries () {
-    this.galleriesElements = document.querySelectorAll('.about__gallery')
+  // createGalleries () {
+  //   this.galleriesElements = document.querySelectorAll('.about__gallery')
 
-    this.galleries = map(this.galleriesElements, (element, index) => {
-      return new Gallery({
-        element,
-        geometry: this.geometry,
-        index,
-        gl: this.gl,
-        scene: this.group,
-        sizes: this.sizes
-      })
-    })
-  }
+  //   this.galleries = map(this.galleriesElements, (element, index) => {
+  //     return new Gallery({
+  //       element,
+  //       geometry: this.geometry,
+  //       index,
+  //       gl: this.gl,
+  //       scene: this.group,
+  //       sizes: this.sizes
+  //     })
+  //   })
+  // }
 
   /**
    * Animations.
