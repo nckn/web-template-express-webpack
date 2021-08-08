@@ -76,6 +76,7 @@ class App {
   }
 
   onPopState () {
+    alert('pop state')
     this.onChange({
       url: window.location.pathname,
       push: false
