@@ -19,8 +19,8 @@ export default class extends Page {
 
         navigation: document.querySelector('.navigation'),
         // link: '.home__link',
-        // list: '.home__titles',
-        items: '.home__titles__text__pair', // The ones that are translated
+        list: '.home',
+        items: '.section--home', // The ones that are translated
         titles: '.home__titles__title__text'
       }
     })

@@ -9,6 +9,7 @@ h6 = 10
 */
 
 * {
+  font-family: 'InterVariable', sans-serif;
   color: #fff;
 }
 
@@ -54,4 +55,8 @@ a {
 
 span {
   // font-size: 1rem;
+}
+
+.text--center {
+  text-align: center;
 }
