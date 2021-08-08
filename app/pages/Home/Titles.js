@@ -32,14 +32,14 @@ export default class extends Component {
     each(this.elements.items, element => {
       const offset = getOffset(element)
 
-      element.extra = 0
+      element.extra = 100
       element.height = offset.height
       element.offset = offset.top
       element.position = 0
     })
 
-    console.log('..............')
-    console.log(this.elements.items[0])
+    // console.log('..............')
+    // console.log(this.elements.items[0])
 
     this.length = this.elements.items.length
 

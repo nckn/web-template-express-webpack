@@ -19,7 +19,7 @@ export default class extends Page {
 
         navigation: document.querySelector('.navigation'),
         // link: '.home__link',
-        list: '.home__titles',
+        // list: '.home__titles',
         items: '.home__titles__text__pair', // The ones that are translated
         titles: '.home__titles__title__text'
       }
@@ -44,7 +44,7 @@ export default class extends Page {
     this.titles = new Titles({
       element: document.body,
       elements: {
-        list: this.elements.list,
+        list: this.elements.wrapper,
         items: this.elements.items,
         titles: this.elements.titles
       }
