@@ -169,15 +169,18 @@ class App {
   }
 
   onWheel (event) {
+    // console.log('onWheel app/index')
+    // console.log('this.page')
+    // console.log(this.page)
     const normalizedWheel = NormalizeWheel(event)
 
     if (this.canvas && this.canvas.onWheel) {
       this.canvas.onWheel(normalizedWheel)
     }
 
-    // if (this.page && this.page.onWheel) {
-    //   this.page.onWheel(normalizedWheel)
-    // }
+    if (this.page && this.page.onWheel) {
+      this.page.onWheel(normalizedWheel)
+    }
   }
 
   /**

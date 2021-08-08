@@ -88,9 +88,10 @@ export default class extends Page {
   //   this.titles.onTouchUp(event)
   // }
 
-  // onWheel (event) {
-  //   this.titles.onWheel(event)
-  // }
+  onWheel (event) {
+    console.log('onWheel pages/Home')
+    // this.titles.onWheel(event)
+  }
 
   /**
    * Loop.
