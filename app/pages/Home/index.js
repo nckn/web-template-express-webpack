@@ -57,8 +57,8 @@ export default class extends Page {
    * Animations.
    */
   async show (url) {
-    console.log('elem')
-    console.log(this.element)
+    // console.log('elem')
+    // console.log(this.element)
     this.element.classList.add(this.classes.active)
 
     return super.show(url)

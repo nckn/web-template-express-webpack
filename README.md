@@ -1,10 +1,16 @@
+##### Misc tips
 https://dev.to/simonpaix/10-useful-vs-code-shortcuts-you-should-know-42m
 
+### Shared folder
+Webpack makes sure to copy everything from this folder and into public
 
-Pros
-alias when fetching files or classes
 
-Cons
+### Pros
+- alias when fetching files or classes
+- hot reload
+
+### Cons
+
 
 
 
