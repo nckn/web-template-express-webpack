@@ -1,6 +1,10 @@
 https://dev.to/simonpaix/10-useful-vs-code-shortcuts-you-should-know-42m
 
 
+Pros
+alias when fetching files or classes
+
+Cons
 
 
 

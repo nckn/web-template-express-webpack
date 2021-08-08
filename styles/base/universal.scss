@@ -28,7 +28,8 @@ $base-color: #111111;
     flex-direction: column;
   }
   &.container--inner {
-    
+    max-width: $max-width-md;
+    background: blue;
   }
 }
 
