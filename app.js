@@ -18,16 +18,16 @@ app.use(methodOverride())
 app.use(errorHandler())
 app.use(express.static(path.join(__dirname, 'public')))
 
-const Prismic = require('@prismicio/client')
-const PrismicDOM = require('prismic-dom')
+// const Prismic = require('@prismicio/client')
+// const PrismicDOM = require('prismic-dom')
 const UAParser = require('ua-parser-js')
 
-const initApi = req => {
-  return Prismic.getApi(process.env.PRISMIC_ENDPOINT, {
-    accessToken: process.env.PRISMIC_ACCESS_TOKEN,
-    req
-  })
-}
+// const initApi = req => {
+//   return Prismic.getApi(process.env.PRISMIC_ENDPOINT, {
+//     accessToken: process.env.PRISMIC_ACCESS_TOKEN,
+//     req
+//   })
+// }
 
 const handleLinkResolver = doc => {
   // if (doc.type === 'project') {
@@ -50,7 +50,7 @@ app.use((req, res, next) => {
   //   return index == 0 ? 'One' : index == 1 ? 'Two' : index == 2 ? 'Three' : index == 3 ? 'Four' : '';
   // }
 
-  res.locals.PrismicDOM = PrismicDOM
+  // res.locals.PrismicDOM = PrismicDOM
 
   next()
 })

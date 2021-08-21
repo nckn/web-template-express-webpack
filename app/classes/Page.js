@@ -69,7 +69,6 @@ export default class extends EventEmitter {
 
     this.transformPrefix = Prefix('transform')
     
-    
     this.create()
     
     // console.log('this.element is in init: ')

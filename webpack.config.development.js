@@ -9,7 +9,9 @@ module.exports = merge(config, {
   devtool: 'inline-source-map',
 
   devServer: {
-    writeToDisk: true
+    port: 4321,
+    writeToDisk: true,
+    open: true
   },
 
   output: {
