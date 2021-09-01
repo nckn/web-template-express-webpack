@@ -105,7 +105,7 @@ class App {
 
     const page = this.pages[url]
 
-    await this.transition.show({
+    await this.transition.showc({
       color: page.element.getAttribute('data-color')
     })
 
